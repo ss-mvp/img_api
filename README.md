@@ -1,4 +1,4 @@
 # img_api
-測試使用 - fetch/dev
+測試使用
 
 HELLO WORLD !! !!
