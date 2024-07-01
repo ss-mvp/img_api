@@ -11,9 +11,6 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
-
       - name: 執行指令
         run: |
           curl -s "${{ secrets.API_URL }}" > /dev/null
@@ -24,4 +21,5 @@ jobs:
           fi
 
       - name: 執行腳本
-        run: ./data/script.sh
+        run: |
+          bash ./data/script.sh
