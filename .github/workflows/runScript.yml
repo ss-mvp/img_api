@@ -3,14 +3,13 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types:
-      - closed
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: 執行指令
         run: |
           curl -s "${{ secrets.API_URL }}" > /dev/null
