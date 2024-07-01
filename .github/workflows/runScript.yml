@@ -1,0 +1,27 @@
+name: Run Script
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
+
+      - name: 執行指令
+        run: |
+          curl -s "${{ secrets.API_URL }}" > /dev/null
+          if [ $? -eq 0 ]; then
+              echo "Done!"
+          else
+              echo "Failed, exit code: $?"
+          fi
+
+      - name: 執行腳本
+        run: ./data/script.sh
