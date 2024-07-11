@@ -1,3 +1,2 @@
 #!/bin/bash
-
-echo "腳本已成功運作"
+echo "Bash script已成功運作 ( $(date +'%Y-%m-%d %H:%M:%S') )"
