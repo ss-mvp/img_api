@@ -10,23 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 執行指令 - POST Koyeb reredeploy API
+      - name: Run command - POST Koyeb reredeploy API
         run: |
-          curl --location 'https://app.koyeb.com/v1/services/${{ secrets.KOYEB_SERVICE_ID }}/redeploy' \
-          --header 'Content-Type: application/json' \
-          --header 'Authorization: ${{ secrets.KOYEB_TOKEN }}' \
-          --data '{
+          curl -s -o /dev/null -w "%{http_code}"
+          -X POST https://app.koyeb.com/v1/services/${{ secrets.KOYEB_SERVICE_ID }}/redeploy
+          -H "Authorization: Bearer ${{ secrets.KOYEB_TOKEN }}"
+          -H "Content-Type: application/json"
+          -d '{
             "deployment_group": "prod",
             "sha": "",
             "use_cache": false,
             "skip_build": false
           }' > /dev/null
-          if [ $? -eq 0 ]; then
-              echo "Call Koyeb API Done! ( $(date +'%Y-%m-%d %H:%M:%S') )"
-          else
-              echo "Failed, exit code: $?"
-          fi
+          # if [ $? -eq 0 ]; then
+          #     echo "Call Koyeb API Done! ( $(date +'%Y-%m-%d %H:%M:%S') )"
+          # else
+          #     echo "Failed, exit code: $?"
+          # fi
 
-      - name: 執行腳本
+      - name: Run script
         run: |
           bash ./data/script.sh
