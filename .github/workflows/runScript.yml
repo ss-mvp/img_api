@@ -12,15 +12,16 @@ jobs:
 
       - name: Run command - POST Koyeb reredeploy API
         run: |
-          curl -X POST https://app.koyeb.com/v1/services/${{ secrets.KOYEB_SERVICE_ID }}/redeploy
-          -H "Authorization: Bearer ${{ secrets.KOYEB_TOKEN }}"
+          curl -H "Authorization: Bearer ${{ secrets.KOYEB_TOKEN }}"
           -H "Content-Type: application/json"
           -d '{
             "deployment_group": "prod",
             "sha": "",
             "use_cache": false,
             "skip_build": false
-          }' -s -o /dev/null -w "%{http_code}"
+          }'
+          -X POST "https://app.koyeb.com/v1/services/${{ secrets.KOYEB_SERVICE_ID }}/redeploy"
+          -s -o /dev/null -w "%{http_code}"
           # if [ $? -eq 0 ]; then
           #     echo "Call Koyeb API Done! ( $(date +'%Y-%m-%d %H:%M:%S') )"
           # else
